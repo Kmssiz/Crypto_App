@@ -1,3 +1,5 @@
+import 'package:crypto_app/Screens/sign_page.dart';
+import 'package:crypto_app/widgets/Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:crypto_app/models/onboard_data.dart';
@@ -94,37 +96,32 @@ class _OnBoarrdingState extends State<OnBoarrding> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          _pageController.nextPage(
-                              duration: const Duration(milliseconds: 400),
-                              curve: Curves.easeInOut);
+                          if (currentPage == 2) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Sign()),
+                            );
+                          } else {
+                            _pageController.nextPage(
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeInOut);
+                          }
                         },
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 40.76.h, 0, 0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16.r),
-                              color: const Color(0xFF5ED5A8),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: const Color(0xFF5ED5A8)
-                                        .withOpacity(0.2),
-                                    blurRadius: 16.r),
-                              ],
-                            ),
-                            height: 54.h,
-                            width: 180.w,
-                            child: Center(
-                              child: Text(
-                                currentPage == 2 ? 'Finish' : 'Next',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(color: const Color(0xFF171D22)),
-                              ),
-                            ),
+                        child: Button(
+                          top: 40.76.h,
+                          height: 54.h,
+                          width: 180.w,
+                          radius: 16.r,
+                          color: const Color(0xFF5ED5A8),
+                          widget: Text(
+                            currentPage == 2 ? 'Finish' : 'Next',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(color: const Color(0xFF171D22)),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

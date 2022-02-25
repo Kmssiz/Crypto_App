@@ -1,5 +1,5 @@
+import 'package:crypto_app/Screens/onboarding_page.dart';
 import 'package:flutter/material.dart';
-import 'Screens/onboarding_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class App extends StatelessWidget {
@@ -30,7 +30,7 @@ class App extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           bodyText2: TextStyle(
-            color: const Color(0xFF0F1828),
+            color: const Color(0xFF777777),
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
           ),
