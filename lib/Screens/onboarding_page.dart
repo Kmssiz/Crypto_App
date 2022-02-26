@@ -1,8 +1,10 @@
-import 'package:crypto_app/Screens/sign_page.dart';
+import 'package:crypto_app/Screens/authentification/sign_page.dart';
+import 'package:crypto_app/main.dart';
 import 'package:crypto_app/widgets/Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:crypto_app/models/onboard_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoarrding extends StatefulWidget {
   const OnBoarrding({Key? key}) : super(key: key);
@@ -26,6 +28,18 @@ class _OnBoarrdingState extends State<OnBoarrding> {
         shape: BoxShape.circle,
       ),
     );
+  }
+
+  Future setSeenonboard() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    seenOnboard = await pref.setBool('seenOnboard', true);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setSeenonboard();
   }
 
   @override

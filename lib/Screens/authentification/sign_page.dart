@@ -1,4 +1,4 @@
-import 'package:crypto_app/Screens/sign_prototype.dart';
+import 'package:crypto_app/Screens/authentification/sign_prototype.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

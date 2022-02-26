@@ -1,9 +1,11 @@
+import 'package:crypto_app/Screens/authentification/sign_page.dart';
 import 'package:crypto_app/Screens/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  final bool? seen;
+  const App({Key? key, required this.seen}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class App extends StatelessWidget {
           ),
         ),
       ),
-      home: const OnBoarrding(),
+      home: seen == true ? Sign() : const OnBoarrding(),
     );
   }
 }
