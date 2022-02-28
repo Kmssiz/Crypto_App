@@ -9,15 +9,15 @@ class Button extends StatelessWidget {
   final Color color;
   final Widget widget;
 
-  const Button(
-      {Key? key,
-      required this.top,
-      required this.height,
-      required this.width,
-      required this.radius,
-      required this.color,
-      required this.widget})
-      : super(key: key);
+  const Button({
+    Key? key,
+    required this.top,
+    required this.height,
+    required this.width,
+    required this.radius,
+    required this.color,
+    required this.widget,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

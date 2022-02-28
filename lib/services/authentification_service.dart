@@ -4,33 +4,33 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
-  final GoogleSignIn _googleSignIn;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  AuthenticationService(this._firebaseAuth, this._googleSignIn);
+  AuthenticationService(this._firebaseAuth);
 
-  Future<String?> signIn(
-      {required String email, required String password}) async {
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  signIn({required String email, required String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return 'Signed in';
+      print('singed in');
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      throw e;
     }
   }
 
-  Future<String?> signUp(
-      {required String email, required String password}) async {
+  signUp({required String email, required String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
-      return 'Signed up';
+      print('singed up');
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      throw e;
     }
   }
 
-  Future<String?> signInwithGoogle() async {
+  signInwithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
@@ -41,13 +41,12 @@ class AuthenticationService {
         idToken: googleSignInAuthentication.idToken,
       );
       await _firebaseAuth.signInWithCredential(credential);
-      return 'Signed in';
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      throw e;
     }
   }
 
-  Future<String?> signInWithFacebook() async {
+  signInWithFacebook() async {
     try {
       final LoginResult result = await FacebookAuth.instance.login();
       switch (result.status) {
@@ -55,7 +54,7 @@ class AuthenticationService {
           final AuthCredential facebookCredential =
               FacebookAuthProvider.credential(result.accessToken!.token);
           await _firebaseAuth.signInWithCredential(facebookCredential);
-          return 'Signed in';
+          break;
         case LoginStatus.cancelled:
           return 'cancelled';
         case LoginStatus.failed:
@@ -66,5 +65,9 @@ class AuthenticationService {
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
+  }
+
+  signOut() async {
+    await _firebaseAuth.signOut();
   }
 }

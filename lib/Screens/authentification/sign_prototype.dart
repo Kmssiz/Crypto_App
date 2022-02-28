@@ -1,6 +1,8 @@
+import 'package:crypto_app/services/authentification_service.dart';
 import 'package:crypto_app/widgets/Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class SignScreen extends StatefulWidget {
   final int type;
@@ -14,6 +16,9 @@ class SignScreen extends StatefulWidget {
 
 class _SignScreenState extends State<SignScreen> {
   bool hide_password = true;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -57,6 +62,7 @@ class _SignScreenState extends State<SignScreen> {
           Padding(
             padding: EdgeInsets.only(top: 12.h),
             child: TextFormField(
+              controller: emailController,
               style: Theme.of(context).textTheme.bodyText2,
               decoration: InputDecoration(
                 hintText: widget.type == 0
@@ -84,6 +90,7 @@ class _SignScreenState extends State<SignScreen> {
           Padding(
             padding: EdgeInsets.only(top: 12.h),
             child: TextFormField(
+              controller: passwordController,
               obscureText: hide_password,
               style: Theme.of(context).textTheme.bodyText2,
               decoration: InputDecoration(
@@ -124,18 +131,31 @@ class _SignScreenState extends State<SignScreen> {
                   ),
                 )
               : Container(),
-          Button(
-            top: 40.h,
-            height: 54.h,
-            width: 366.w,
-            radius: 16.r,
-            color: const Color(0xFF5ED5A8),
-            widget: Text(
-              widget.type == 0 ? 'Sign in' : 'Sign up',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  ?.copyWith(color: const Color(0xFF171D22)),
+          GestureDetector(
+            onTap: () {
+              if (widget.type == 0) {
+                context.read<AuthenticationService>().signIn(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim());
+              } else {
+                context.read<AuthenticationService>().signUp(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim());
+              }
+            },
+            child: Button(
+              top: 40.h,
+              height: 54.h,
+              width: 366.w,
+              radius: 16.r,
+              color: const Color(0xFF5ED5A8),
+              widget: Text(
+                widget.type == 0 ? 'Sign in' : 'Sign up',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    ?.copyWith(color: const Color(0xFF171D22)),
+              ),
             ),
           ),
           Padding(
@@ -147,47 +167,57 @@ class _SignScreenState extends State<SignScreen> {
             padding: EdgeInsets.only(top: 20.h),
             child: Row(
               children: [
-                Button(
-                  top: 0,
-                  height: 54.w,
-                  width: 173.w,
-                  radius: 16.r,
-                  color: const Color(0xFFFFFFFF),
-                  widget: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/Facebook.png'),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Text(
-                        'Facebook',
-                        style: Theme.of(context).textTheme.bodyText1,
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    context.read<AuthenticationService>().signInWithFacebook();
+                  },
+                  child: Button(
+                    top: 0,
+                    height: 54.w,
+                    width: 173.w,
+                    radius: 16.r,
+                    color: const Color(0xFFFFFFFF),
+                    widget: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/Facebook.png'),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Text(
+                          'Facebook',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 20.w,
                 ),
-                Button(
-                  top: 0,
-                  height: 54.w,
-                  width: 173.w,
-                  radius: 16.r,
-                  color: const Color(0xFFFFFFFF),
-                  widget: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/Google.png'),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Text(
-                        'Google',
-                        style: Theme.of(context).textTheme.bodyText1,
-                      )
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    context.read<AuthenticationService>().signInwithGoogle();
+                  },
+                  child: Button(
+                    top: 0,
+                    height: 54.w,
+                    width: 173.w,
+                    radius: 16.r,
+                    color: const Color(0xFFFFFFFF),
+                    widget: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset('assets/Google.png'),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Text(
+                          'Google',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
