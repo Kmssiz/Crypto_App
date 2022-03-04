@@ -22,9 +22,10 @@ class _HomeState extends State<Home> {
     }
   }
 
+  int activeIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    int activeIndex = 0;
     final pages = [
       const page.Page(indext: 0),
       const page.Page(indext: 1),
