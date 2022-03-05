@@ -101,6 +101,7 @@ flutter:
           weight: 600
         - asset: fonts/NeueMontreal-Italic.otf
         - asset: fonts/NeueMontreal-Bold.otf
+          weight: 700
         - asset: fonts\NeueMontreal-BoldItalic.otf
         - asset: fonts\NeueMontreal-Light.otf 
         - asset: fonts\NeueMontreal-LightItalic.otf

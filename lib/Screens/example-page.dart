@@ -8,7 +8,7 @@ class Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Page n°$indext"),
+        child: Text("Page n°${indext + 1}"),
       ),
     );
   }

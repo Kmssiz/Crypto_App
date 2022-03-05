@@ -34,6 +34,11 @@ class App extends StatelessWidget {
               const IconThemeData().copyWith(color: const Color(0xFF5ED5A8)),
           fontFamily: 'Neue Montreal',
           textTheme: TextTheme(
+            headline1: TextStyle(
+              color: const Color(0xFF1B232A),
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w700,
+            ),
             headline2: TextStyle(
               color: const Color(0xFFFFFFFF),
               fontSize: 24.sp,

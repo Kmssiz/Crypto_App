@@ -1,3 +1,4 @@
+import 'package:crypto_app/Screens/Home_Screen.dart';
 import 'package:crypto_app/constants/constans.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_app/Screens/example-page.dart' as page;
@@ -27,14 +28,16 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      const page.Page(indext: 0),
+      const HomeScreen(),
       const page.Page(indext: 1),
       const page.Page(indext: 2),
       const page.Page(indext: 3),
       const page.Page(indext: 4)
     ];
     return Scaffold(
-      backgroundColor: Colors.white,
+      body: pages[activeIndex],
+      backgroundColor:
+          activeIndex == 0 ? Colors.white : Theme.of(context).primaryColor,
       bottomNavigationBar: Padding(
         padding: EdgeInsets.fromLTRB(24.w, 0, 24.w, 24.h),
         child: Container(
@@ -44,7 +47,7 @@ class _HomeState extends State<Home> {
             boxShadow: [
               BoxShadow(
                   color: const Color(0xFF161C22).withOpacity(0.5),
-                  blurRadius: 50.r,
+                  blurRadius: activeIndex == 0 ? 50.r : 10.r,
                   blurStyle: BlurStyle.normal),
             ],
           ),
@@ -60,7 +63,6 @@ class _HomeState extends State<Home> {
                 onTap: () {
                   setState(() {
                     activeIndex = i;
-                    print(activeIndex);
                   });
                 },
                 child: AnimatedContainer(
